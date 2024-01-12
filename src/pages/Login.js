@@ -9,14 +9,14 @@ const Login = () => {
   const params = useParams()
   const navigate = useNavigate()
   useEffect(()=>{
-    console.log(params)
     if(params?.userId){
         async function auth () {
             try{
                 const resp = await credential(params?.userId)
+                console.log(resp)
                 setUser((p)=>{
                     return{...p,accessToken:resp.accessToken,userId:params.userId,email:resp.email,
-                    name:resp.name,email:resp.email,picture:resp.picture
+                    name:resp.name,email:resp.email,picture:resp.picture,requests:resp.requests
                     }
                 })
             }catch(err){
