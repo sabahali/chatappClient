@@ -6,11 +6,17 @@ import { Avatar, Typography } from '@mui/material';
 import { userContext } from './userContext';
 import SendRequest from './SendRequest';
 import AcceptReq from './AcceptReq';
-export default function Usermenu({contacts}) {
-    const { user } = React.useContext(userContext);
+import { axiosInstance } from '../Apis/axiosIntercept';
+import { useNavigate } from 'react-router-dom';
+import Profile from './Profile';
+export default function Usermenu({contacts,mutateContacts}) {
+    const { user,setUser } = React.useContext(userContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [request, setRequest] = React.useState(false)
-    const [accept, setAccept] = React.useState(false)
+    const [accept, setAccept] = React.useState(false);
+    const [ profile,SetProfile] = React.useState(false);
+    const navigate = useNavigate()
+ 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -26,13 +32,26 @@ export default function Usermenu({contacts}) {
         setAnchorEl(null);
         setAccept(true)
     }
-    const logout = () => {
-
+    const logout = async() => {
+        try{
+            const result = await axiosInstance('/logout')
+            console.log(result.data)
+            setUser({})
+            navigate('/',{replace:true})
+        }catch(err){
+            setUser({})
+            navigate('/',{replace:true})
+        }
     }
-
+    const changeDp = () =>{
+        setAnchorEl(null);
+        SetProfile(true)
+    }
     return (
         <div>
-            {request ? <SendRequest setAnchorEl={setAnchorEl} setRequest = {setRequest}/> : accept ? <AcceptReq setAnchorEl={setAnchorEl} setAccept = {setAccept} /> : null}
+            {request ? <SendRequest setAnchorEl={setAnchorEl} setRequest = {setRequest}/> 
+            : accept ? <AcceptReq setAnchorEl={setAnchorEl} setAccept = {setAccept} mutateContacts={mutateContacts} /> 
+            : profile ? <Profile SetProfile ={SetProfile}/> : null}
                 <Button
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
@@ -51,6 +70,7 @@ export default function Usermenu({contacts}) {
                         'aria-labelledby': 'basic-button',
                     }}
                 >
+                    <MenuItem onClick={changeDp}>Change Profile Picture</MenuItem>
                     <MenuItem onClick={sendRequest}>Send Friend Request</MenuItem>
                     <MenuItem onClick={acceptRequest}>Accept request</MenuItem>
                     <MenuItem onClick={logout}>Logout</MenuItem>

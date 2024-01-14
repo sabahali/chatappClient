@@ -14,7 +14,7 @@ import useSWR from 'swr';
 import { getFrndRequests } from '../Apis/helperApis';
 import { blueGrey } from '@mui/material/colors';
 
-const AcceptReq = ({ setAccept, setAnchorEl }) => {
+const AcceptReq = ({ setAccept, setAnchorEl,mutateContacts }) => {
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState('')
     const [response, setResponse] = React.useState(null)
@@ -33,6 +33,7 @@ const AcceptReq = ({ setAccept, setAnchorEl }) => {
                 params:{_id:item._id,userId:user?.userId}
             })
             setResponse(`${item.name} is added to your contacts !`)
+            mutateContacts()
         }catch(err){
             setResponse("Failed to add !")
         }

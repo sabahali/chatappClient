@@ -11,13 +11,14 @@ import GroupForm from './GroupForm';
 import Groupsidepanel from './Groupsidepanel';
 import Groupmsgs from './Groupmsgs';
 import Usermenu from '../Components/Usermenu';
+import LoadingModal from '../Components/LoadingModal';
 const AppLayout = () => {
     const [target, setTarget] = useState(null);
     const { user } = useContext(userContext);
     const [privatemsg, setPrivatemsg] = useState(true)
     const [contacts,setContacts] = useState([]);
     const [currentgrp,setCurrentgrp] = useState(null)
-    const { data, isLoading, error } = useSWR({url:'/getcontacts',userId:user?.userId}, getContacts, {
+    const { data, isLoading, error,mutate:mutateContacts } = useSWR({url:'/getcontacts',userId:user?.userId}, getContacts, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false
     })
@@ -25,16 +26,15 @@ const AppLayout = () => {
         revalidateOnFocus: false,
         revalidateOnReconnect: false
     })
-    const [anchorEl, setAnchorEl] = React.useState(null);
     useEffect(()=>{
         setContacts(data)
     },[data])
-    useEffect(() => {
-        console.log(target)
-    }, [target])
-    useEffect(() => {
-        console.log(currentgrp)
-    }, [currentgrp])
+    // useEffect(() => {
+    //     console.log(target)
+    // }, [target])
+    // useEffect(() => {
+    //     console.log(currentgrp)
+    // }, [currentgrp])
     const handleClick = (item) => {
         setTarget({
             name: item.name,
@@ -57,7 +57,7 @@ const AppLayout = () => {
     }
     useEffect(()=>{
         const joinedGroup = (data) =>{
-            console.log(data)
+            mutateGrps()
         }
         socket.on('joinedgroup',joinedGroup)
         return(()=>{
@@ -65,12 +65,12 @@ const AppLayout = () => {
         })
     },[socket])
     return (
-        <>
+        <> {user?.email !== '' ?
             <Box sx={{ backgroundColor: '#1A2027', width: '100vw', height: '100vh' }}>
                 <Grid container direction='row' width='100%' height='10vh'>
                     <Grid item xs={12} sx={{ backgroundColor: '#fff', justifyContent: 'space-between', px: 5, alignItems: 'center', display: 'flex' }} >
                         <Typography>{user.name}</Typography>
-                        <Usermenu contacts = {contacts}/>
+                        <Usermenu contacts = {contacts} mutateContacts={mutateContacts}/>
                         {/* <Button onClick={handleDisconnect}>Disconnect</Button>
                         <Button onClick={handleConnect}>connect</Button> */}
                     </Grid>
@@ -99,6 +99,7 @@ const AppLayout = () => {
 
                 </Grid>
             </Box>
+             : <LoadingModal/>}
         </>
 
     )

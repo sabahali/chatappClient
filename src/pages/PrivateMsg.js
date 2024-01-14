@@ -49,7 +49,6 @@ const PrivateMsg = ({ target }) => {
     }, [socket]);
     useEffect(() => {     //msg seen by other user
         const messageSeen = ({ sender, receiver }) => {
-            // console.log(sender,receiver)
             mutateMsgs({ url: '/getmsgs', sender, receiver })
         }
         socket.on('msgseenchange', messageSeen)

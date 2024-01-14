@@ -13,7 +13,6 @@ const Login = () => {
         async function auth () {
             try{
                 const resp = await credential(params?.userId)
-                console.log(resp)
                 setUser((p)=>{
                     return{...p,accessToken:resp.accessToken,userId:params.userId,email:resp.email,
                     name:resp.name,email:resp.email,picture:resp.picture,requests:resp.requests

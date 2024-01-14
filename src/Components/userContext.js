@@ -10,7 +10,6 @@ const UserProvider = ({children}) => {
         accessToken:'',
 
     })
-
   return (
     <userContext.Provider value={{user,setUser}}>
         {children}
