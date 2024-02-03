@@ -20,13 +20,15 @@ const Login = () => {
                     }
                 })
             }catch(err){
-                
+                navigate('/app',{replace:true})
             }finally{
                 navigate('/app',{replace:true})
             }
             
         }
         auth()
+    }else{
+        navigate('/app',{replace:true})
     }
 },[params])
 

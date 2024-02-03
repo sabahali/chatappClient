@@ -4,9 +4,7 @@ import Home from './pages/home';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Login from './pages/Login';
 import AppLayout from './pages/appLayout';
-import { useContext, useEffect, useState } from 'react';
-import { userContext } from './Components/userContext';
-import { getReload } from './Apis/helperApis';
+import LoadingModal from './Components/LoadingModal';
 
 
 function App() {
@@ -17,8 +15,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Outlet />}>
           <Route index element={<Home/>} />
-          <Route path='login/:userId' element={<Login />}/>
+          <Route path='/login/:userId' element={<Login />}/>
           <Route path='app' element = {<AppLayout/>}/>
+          <Route path='loading' element = {<LoadingModal/>}/>
         </Route>
       </Routes>
 
