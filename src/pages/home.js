@@ -38,7 +38,7 @@ const Home = () => {
     onSuccess: codeResponse => console.log(codeResponse),
     flow: 'auth-code',
     ux_mode:'redirect',
-    redirect_uri:'http://localhost:8000/redirecturi',
+    redirect_uri:`${process.env.REACT_APP_BASE_URL}/redirecturi`,
     
   });
   return (
