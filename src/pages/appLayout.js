@@ -12,11 +12,13 @@ import Groupsidepanel from './Groupsidepanel';
 import Groupmsgs from './Groupmsgs';
 import Usermenu from '../Components/Usermenu';
 import LoadingModal from '../Components/LoadingModal';
+import { useNavigate } from 'react-router-dom';
 const AppLayout = () => {
     const [target, setTarget] = useState(null);
     const { user } = useContext(userContext);
     const [privatemsg, setPrivatemsg] = useState(true)
     const [contacts,setContacts] = useState([]);
+    const navigate = useNavigate()
     const [currentgrp,setCurrentgrp] = useState(null)
     const { data, isLoading, error,mutate:mutateContacts } = useSWR({url:'/getcontacts',userId:user?.userId}, getContacts, {
         revalidateOnFocus: false,
@@ -29,6 +31,11 @@ const AppLayout = () => {
     useEffect(()=>{
         setContacts(data)
     },[data])
+    useEffect(()=>{
+        if(!user?.email ){
+            navigate('/')
+        }
+    },[user])
     // useEffect(() => {
     //     console.log(target)
     // }, [target])

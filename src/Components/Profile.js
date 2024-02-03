@@ -21,7 +21,6 @@ const Profile = ({ SetProfile }) => {
     const [file, setFile] = React.useState(null)
     React.useEffect(() => {
         setOpen(true);
-        console.log('modal')
     }, [])
     const handleClose = () => {
         setOpen(false)
@@ -65,7 +64,7 @@ const Profile = ({ SetProfile }) => {
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle>Send Friend Request</DialogTitle>
+                <DialogTitle>Change Profile Picture</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                     </DialogContentText>

@@ -45,7 +45,7 @@ const AcceptReq = ({ setAccept, setAnchorEl,mutateContacts }) => {
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle>Send Friend Request</DialogTitle>
+                <DialogTitle>Accespt Friend Request</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                     </DialogContentText>

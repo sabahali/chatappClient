@@ -10,6 +10,7 @@ const Login = () => {
   const navigate = useNavigate()
   useEffect(()=>{
     if(params?.userId){
+        console.log(params?.userId)
         async function auth () {
             try{
                 const resp = await credential(params?.userId)

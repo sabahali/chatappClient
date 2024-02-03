@@ -17,8 +17,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Outlet />}>
           <Route index element={<Home/>} />
-          <Route path='/login/:userId' element={<Login />}/>
-          <Route path='/app' element = {<AppLayout/>}/>
+          <Route path='login/:userId' element={<Login />}/>
+          <Route path='app' element = {<AppLayout/>}/>
         </Route>
       </Routes>
 

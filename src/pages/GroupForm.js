@@ -91,14 +91,14 @@ export default function GroupForm({contacts,userId,mutateGrps}) {
             value={grpname}
             onChange={(e) => setGrpname(e.target.value)}
           />
-            <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+            <InputLabel id="demo-multiple-chip-label">Add</InputLabel>
             <Select
               labelId="demo-multiple-chip-label"
               id="demo-multiple-chip"
               multiple
               value={personName}
               onChange={handleChange}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" fullWidth />}
+              input={<OutlinedInput id="select-multiple-chip" label="Add Members" fullWidth />}
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                   {selected.map((value) => (
