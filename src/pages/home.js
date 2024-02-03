@@ -44,7 +44,7 @@ const Home = () => {
   return (
     <div className='flex w-screen items-center flex-col h-screen bg-slate-800 text-slate-300'>
       <div className='flex justify-around w-screen p-4 text-slate-300 mt-5 '>
-        <button className='text-xl hover:text-slate-50  px-4 py-1 bg-slate-600 rounded-full hover:bg-slate-700'
+        <button disabled = {!!logText ? true:false} className='text-xl hover:text-slate-50  px-4 py-1 bg-slate-600 rounded-full hover:bg-slate-700'
         onClick={()=>{
           navigate('app')
         }}
